@@ -33,6 +33,7 @@ function InfinityScrollPractice() {
     useRef<HTMLButtonElement>(null);
 
   console.log('ref: ', loadMoreButtonRef.current);
+  console.log('data: ', data);
 
   useIntersectionObserver({
     target: loadMoreButtonRef,
@@ -77,23 +78,25 @@ function InfinityScrollPractice() {
               ))}
             </Fragment>
           ))}
-          <div>
-            <button
-              ref={loadMoreButtonRef}
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-            >
-              {isFetchingNextPage
-                ? 'Loading more...'
-                : hasNextPage
-                ? 'Load Newer'
-                : 'Nothing more to load'}
-            </button>
-          </div>
           <div>{isFetching && !isFetchingNextPage ? 'Background Updating....' : null}</div>
         </>
       )}
       <hr />
+
+      <div>
+        <button
+          ref={loadMoreButtonRef}
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+          style={{ display: `${data ? 'block' : 'none'}` }}
+        >
+          {isFetchingNextPage
+            ? 'Loading more...'
+            : hasNextPage
+            ? 'Load Newer'
+            : 'Nothing more to load'}
+        </button>
+      </div>
       <Link href="/about">
         <a>Go to another page</a>
       </Link>
